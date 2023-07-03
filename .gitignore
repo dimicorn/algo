@@ -36,3 +36,5 @@
 *.vsix
 
 *.txt
+
+/.DS_Store
