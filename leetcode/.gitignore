@@ -1,5 +1,6 @@
 .vscode/
 .DS_Store
 21_merge_two_sorted_lists.cpp
-387_first_unique_character_in_a_string.cpp
+443_string_compression.cpp
+567_permutation_in_string.cpp
 out
