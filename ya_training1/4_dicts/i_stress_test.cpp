@@ -2,50 +2,53 @@
 
 using namespace std;
 
-pair<string, int> tol(string s) {
-    string res = "";
-    int count = 0;
-    for (int i = 0; i < s.length(); ++i) {
-        res += tolower(s[i]);
-        if (s[i] != tolower(s[i])) {
-            count++;
-        }
-    }
-    return make_pair(res, count);
+string tol(string s) {
+	for (auto &i : s) {
+		i = tolower(i);
+	}
+	return s;
 }
-int main() {
-    int n, stress, count = 0;
-    string word, key, key_t, sentence, temp = "";
-    map<string, set<string>> dict;
-    cin >> n;
-    for (int i = 0; i < n; ++i) {
-        cin >> word;
-        key = tol(word).first;
-        dict[key].insert(word);
-    }
-    getline(cin, word);
-    getline(cin, sentence);
-    sentence += ' ';
-    for (int i = 0; i < sentence.length(); ++i) {
-        if (sentence[i] == ' ') {
-            key_t = tol(temp).first;
-            stress = tol(temp).second;
-            if (stress != 1) {
-                count++;
-            } else {
-                for (auto const &j : dict) {
-                    if (key_t == j.first && (j.second).find(temp) == (j.second).end()) {
-                        count++;
-                        break;
-                    }
-                }
-            }
-            temp = "";
-        } else {
-            temp += sentence[i];
-        }
-    }
-    cout << count << '\n';
 
-    return 0;
+bool check(string s) {
+	int count = 0;
+	for (auto &i : s) {
+		if ('a' <= i && i <= 'z') {
+			continue;
+		} else {
+			count++;
+		}
+	}
+	if (count == 1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+int main() {
+	int n;
+	cin >> n;
+	unordered_map<string, unordered_set<string>> m;
+	string s, s_l;
+	for (int i = 0; i < n; ++i) {
+		cin >> s;
+		m[tol(s)].insert(s);
+	}
+	int count = 0;
+	while(cin >> s) {
+		s_l = tol(s);
+		if (m.find(s_l) != m.end() && m[s_l].find(s) != m[s_l].end()) {
+			continue;
+		} else if (m.find(s_l) != m.end() && m[s_l].find(s) == m[s_l].end()) {
+			count++;
+		} else if (check(s)) {
+			continue;
+		} else {
+			count++;
+		}
+	}
+
+	cout << count << '\n';
+
+	return 0;
 }
