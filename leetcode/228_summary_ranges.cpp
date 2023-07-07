@@ -5,41 +5,22 @@ using namespace std;
 class Solution {
 public:
     vector<string> summaryRanges(vector<int>& nums) {
-        vector<string> res;
-        pair<int, int> tmp;
-        if (nums.size() > 1) {
-            for (int i = 1; i < nums.size(); ++i) {
-                if (i == 1) {
-                    if (nums[i-1] + 1 != nums[i]) {
-                        res.push_back(to_string(nums[i-1]));
-                        tmp = make_pair(nums[i], nums[i]);
-                    } else {
-                        tmp = make_pair(nums[i-1], nums[i]);
-                    }
-                } else if (i == nums.size()-1) {
-                    if (nums[i-1] + 1 != nums[i]) {
-                        res.push_back(to_string(tmp.first) + "->" + to_string(tmp.second));
-                        res.push_back(to_string(nums[i]));
-                    } else {
-                        tmp.second++;
-                        res.push_back(to_string(tmp.first) + "->" + to_string(tmp.second));
-                    }
-                } else {
-                    if (nums[i-1] + 1 != nums[i]) {
-                        if (tmp.first == tmp.second) {
-                            res.push_back(to_string(tmp.first));
-                        } else {
-                            res.push_back(to_string(tmp.first) + "->" + to_string(tmp.second));
-                        }
-                        tmp = make_pair(nums[i], nums[i]);
-                    } else {
-                        tmp.second++;
-                    }
-                }
-            }
-        } else if (nums.size() == 1) {
-            res.push_back(to_string(nums[0]));
-        }
+        vector<string> res = {};
+		if (nums.size() == 0) {
+			return res;
+		}
+		res.push_back(to_string(nums[0]));
+		for (int i = 1; i < nums.size(); ++i) {
+			if (nums[i] != nums[i-1] + 1) {
+				if (res[res.size()-1] != to_string(nums[i-1])) {
+					res[res.size()-1] += "->" + to_string(nums[i-1]);
+				}
+				res.push_back(to_string(nums[i]));
+			}
+			if (nums[i] == nums[i-1] + 1 && i == nums.size()-1) {
+				res[res.size()-1] += "->" + to_string(nums[i]);
+			}
+		}
         return res;
     }
 };
