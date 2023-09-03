@@ -31,7 +31,7 @@ int main() {
 	if (sol) {
 		cout << ind.first << ' ' << ind.second << '\n';
 	} else {
-		cout << "IMPOSSIBLE\n";
+		cout << "-1\n";
 	}
 
 	return 0;
