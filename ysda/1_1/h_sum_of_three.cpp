@@ -12,7 +12,7 @@ int main() {
 	}
 
 	/*
-	// this shit doen't pass time limit
+	// this shit doesn't pass time limit
 	unordered_map<int, int> m;
 	for (int i = 0; i < n; ++i) {
 		int tmp = x - arr[i];
